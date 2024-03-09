@@ -13,7 +13,7 @@ dates.
 
 3. Make the migrations and seeds with `make migrate`, `make seed`
 
-4. Run `bash scripts/census_division.sh
+4. Run `bash scripts/census_division.sh`
 
 5. Build the transformations with `make build`
 
