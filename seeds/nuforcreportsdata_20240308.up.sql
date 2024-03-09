@@ -1,0 +1,2 @@
+\copy nuforc_reports(summary, country, city, state, date_time, shape, duration, stats, report_link, "text", posted, city_latitude, city_longitude) FROM 'seeds/data/nuforc_reports.csv' WITH (FORMAT csv, HEADER true)
+;

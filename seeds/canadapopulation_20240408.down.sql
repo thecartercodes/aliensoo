@@ -1,0 +1,1 @@
+DELETE FROM canada_populations WHERE 1=1;

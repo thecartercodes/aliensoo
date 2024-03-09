@@ -1,0 +1,6 @@
+data/*
+venv/
+.env.*
+tmp/
+results/*
+seeds/data/

@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: dim_census_division
+    description: |
+      This dimension table contains all census divisions for provinces in Canada.
+      More information on the boundaries can be found in this govenrment link
+      [here](https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo008).
+    columns:
+      - name: census_division_id
+        description: |
+          The unique identifier for the census division directly obtained from the `cduid`
+          in the statcan source.
+        tests:
+          - unique
+      - name: census_division_name
+        description: |
+          This string specifies the census division each store resides in, where each census
+          division is a StatCan-designated geographic subregion. The PostGIS extension is
+          used to locate each store within a census division, and this not null test verifies
+          that each store has in fact been associated with a census division. The set of 
+          all census divisions form a mutually disjoint cover of all of Canada, and hence 
+          each store should be located within exactly one census division.  
+      - name: census_division_type
+        description: |
+          The census division type comes from the Canadian government census definitions.
+          This current resource contains non-overlapping divisions used
+          to establish provincial law and facilitate regional planning.
+
+          More information can be found here:
+          https://www12.statcan.gc.ca/census-recensement/2021/ref/dict/az/definition-eng.cfm?ID=geo008
+      - name: land_area
+        description: |
+          Land area is the area in square kilometres of the land-based portions
+          of standard geographic areas. The land area measurements are unofficial
+          and are provided for the sole purpose of calculating population density.
+      - name: geom
+        description: |
+          A postgis geometry object used to define the boundaries of the divisions.
+      - name: region_code
+        description: |
+          The two letter international standard denomination for the country's
+          subdivisions established by the ISO-3166-2 code. This can be a province, territory, 
+          state etc. Uses `raw_region_to_province` macro for parsing of the raw region code.
+          If this accepted values test breaks, it means that there was a new region code detected
+          and the logic should be updated to handle the new values if possible.
+        tests:
+          - accepted_values:
+              values: ['NL', 'PE', 'NS', 'NB', 'NB', 'QC', 'ON', 'MB', 'SK', 'AB', 'BC', 'YT', 'NT', 'NU']
+  - name: canada_nuforc_reports
+    description: |
+      A filtered set of nuforc_reports in Canada. For the purpose of this analysis,
+      we only observe the set of report logs having geo-coordinates that map to a polygon
+      defining a census division to Canada.
+  - name: canada_populations
+    description: |
+      Population data by census division in Canada from 2001 to 2022.
+      

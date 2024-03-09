@@ -1,0 +1,2 @@
+\copy canada_populations(ref_date, geo, dguid, sex, age_group, uom, uom_id, scalar_factor, scalar_id, vector, coordinate, value, status, symbol, terminated, decimals) FROM 'seeds/data/canada_populations.csv' WITH (FORMAT csv, HEADER true, ESCAPE '"')
+;

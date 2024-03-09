@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: src
+    schema: public
+    tables:
+      - name: census_division
+      - name: nuforc_reports
+      - name: canada_populations
